@@ -65,7 +65,7 @@ module synchronous_fifo #(parameter DATAWIDTH = 32, parameter ADDRWIDTH = 7)(
     
     // Writing into the FIFO
     always @ (posedge write_clk) begin
-        if (reset)  waddr = 0;
+        if (reset)  waddr <= 0;
         else
             if (write_enable && !(fifo_full)) begin
                 fifo_mem[waddr[ADDRWIDTH-2:0]] <= write_data;
@@ -75,7 +75,7 @@ module synchronous_fifo #(parameter DATAWIDTH = 32, parameter ADDRWIDTH = 7)(
     
     // Reading from the FIFO
     always @ (posedge read_clk) begin
-        if (reset)  raddr = 0;
+        if (reset)  raddr <= 0;
         else
             if (read_enable && !(fifo_empty)) begin
                 read_data <= fifo_mem[raddr[ADDRWIDTH-2:0]];
